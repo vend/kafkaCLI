@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/Shopify/sarama"
 	"github.com/spf13/cobra"
-	"strings"
 )
 
 // createTopicCmd represents the createTopic command

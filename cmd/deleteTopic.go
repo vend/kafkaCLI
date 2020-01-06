@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Shopify/sarama"
 
+	"github.com/Shopify/sarama"
 	"github.com/spf13/cobra"
 )
 
