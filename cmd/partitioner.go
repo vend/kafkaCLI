@@ -37,7 +37,7 @@ kafkaCLI partitioner --topic blackhole --partition-count 16 --message test --key
 func init() {
 	rootCmd.AddCommand(partitionerCmd)
 
-	partitionerCmd.Flags().StringVarP(&topic, "topic", "p", "blackhole", "topic name")
+	partitionerCmd.Flags().StringVarP(&topic, "topic", "t", "blackhole", "topic name")
 	partitionerCmd.Flags().Int16VarP(&partitionCount, "partition-count", "c", 16, "number of partitions for the topic")
 	partitionerCmd.Flags().StringVarP(&message, "message", "m", "test", "message text")
 	partitionerCmd.Flags().StringVarP(&keyId, "key-id", "k", "", "key id used by the message, e.g 00005a30-9766-11e3-a0f5-b8ca3a64f8f4")
