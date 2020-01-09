@@ -17,18 +17,11 @@ kafkaCLI deleteTopic --bootstrap-server kafka:9092 topic1 topic2
 `,
 	Args: cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := kafkaClient()
-		if err != nil {
-			panic(err)
-		}
-		kafkaAdmin, err := sarama.NewClusterAdminFromClient(client)
-		if err != nil {
-			panic(err)
-		}
+		admin := kafkaAdmin()
 
 		for _, topicName := range args {
 			fmt.Println("Deleting topic " + topicName)
-			err = kafkaAdmin.DeleteTopic(topicName)
+			err := admin.DeleteTopic(topicName)
 
 			if err != nil {
 				switch err {
@@ -40,6 +33,8 @@ kafkaCLI deleteTopic --bootstrap-server kafka:9092 topic1 topic2
 				}
 			}
 		}
+
+		_ = admin.Close()
 	},
 }
 
