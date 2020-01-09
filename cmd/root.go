@@ -26,8 +26,7 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&bootstrapServer, "bootstrap-server", "s", "", "address of a node in the kafka cluster")
-	_ = rootCmd.MarkPersistentFlagRequired("bootstrap-server")
+	rootCmd.PersistentFlags().StringVarP(&bootstrapServer, "bootstrap-server", "s", "kafka:9092", "address of a node in the kafka cluster")
 }
 
 func kafkaClient() (sarama.Client, error) {
