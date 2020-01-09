@@ -33,10 +33,6 @@ kafkaCLI partitioner --topic blackhole --partition-count 16 --message test --key
 	},
 }
 
-var topic string
-var partitionCount int16
-var message string
-var keyId string
 
 func init() {
 	rootCmd.AddCommand(partitionerCmd)

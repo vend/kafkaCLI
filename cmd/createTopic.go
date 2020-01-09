@@ -55,11 +55,6 @@ kafkaCLI createTopic --bootstrap-server kafka:9092 --partitions 4 --replication-
 	},
 }
 
-var partitions int32
-var replicationFactor int16
-var ifNotExists bool
-var configEntries []string
-
 func init() {
 	rootCmd.AddCommand(createTopicCmd)
 
