@@ -18,18 +18,11 @@ kafkaCLI createTopic --bootstrap-server kafka:9092 --partitions 4 --replication-
 `,
 	Args: cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := kafkaClient()
-		if err != nil {
-			panic(err)
-		}
-		kafkaAdmin, err := sarama.NewClusterAdminFromClient(client)
-		if err != nil {
-			panic(err)
-		}
+		admin := kafkaAdmin()
 
 		for _, topicName := range args {
 			fmt.Println("Creating topic " + topicName)
-			err = kafkaAdmin.CreateTopic(topicName, topicDetail(), false)
+			err := admin.CreateTopic(topicName, topicDetail(), false)
 			if err != nil {
 				switch err.(type) {
 				case *sarama.TopicError:
@@ -51,7 +44,7 @@ kafkaCLI createTopic --bootstrap-server kafka:9092 --partitions 4 --replication-
 			}
 		}
 
-		_ = kafkaAdmin.Close()
+		_ = admin.Close()
 	},
 }
 
