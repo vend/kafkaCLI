@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/Shopify/sarama"
 	"github.com/spf13/cobra"
@@ -29,9 +30,50 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&bootstrapServer, "bootstrap-server", "s", "kafka:9092", "address of a node in the kafka cluster")
 }
 
-func kafkaClient() (sarama.Client, error) {
+func kafkaClient() sarama.Client {
 	kafkaConfig := sarama.NewConfig()
 	kafkaConfig.Version = sarama.V1_0_0_0
 	addresses := []string{bootstrapServer}
-	return sarama.NewClient(addresses, kafkaConfig)
+
+	var client sarama.Client
+	var err error
+
+	for i := 0; i < 30; i++ {
+		client, err = sarama.NewClient(addresses, kafkaConfig)
+		if err == nil {
+			break
+		}
+
+		fmt.Println("failed to connect to " + bootstrapServer + " Retrying in 1s")
+		time.Sleep(time.Second)
+	}
+
+	if err != nil {
+		panic(err)
+	}
+
+	return client
+}
+
+func kafkaAdmin() sarama.ClusterAdmin {
+	client := kafkaClient()
+
+	var admin sarama.ClusterAdmin
+	var err error
+
+	for i := 0; i < 10; i++ {
+		admin, err = sarama.NewClusterAdminFromClient(client)
+		if err == nil {
+			break
+		}
+
+		fmt.Println("failed to admin cluster at " + bootstrapServer + " Retrying in 1s")
+		time.Sleep(time.Second)
+	}
+
+	if err != nil {
+		panic(err)
+	}
+
+	return admin
 }
