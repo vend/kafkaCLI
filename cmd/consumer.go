@@ -27,10 +27,12 @@ kafkaCLI consumer --topic blackhole --partitions-to-read all --offset-type newes
 func init() {
 	rootCmd.AddCommand(consumerCmd)
 
-	consumerCmd.Flags().StringVarP(&topic, "topic", "p", "blackhole", "topic name")
-	consumerCmd.Flags().StringVarP(&partitionsToRead, "partitions-to-read", "c", 16, "number of partitions for the topic")
-	consumerCmd.Flags().StringVarP(&message, "message", "m", "test", "message text")
-	consumerCmd.Flags().StringVarP(&keyId, "key-id", "k", "", "key id used by the message, e.g 00005a30-9766-11e3-a0f5-b8ca3a64f8f4")
+	consumerCmd.Flags().StringVarP(&topic, "topic", "t", "blackhole", "topic name")
+	consumerCmd.Flags().StringVarP(&partitionsToRead, "partitions-to-read", "p", "all", "comma list partitions to read or all to read from all partitions")
+	consumerCmd.Flags().StringVarP(&offsetType, "offset-type", "n", "newest", "read from latest or newest offset?")
+	consumerCmd.Flags().Int32VarP(&messagesToRead, "messages-to-read", "m", 5000, "number of messages to read")
+	consumerCmd.Flags().Int32VarP(&bufferSize, "buffer-size", "b", 256, "buffer size of the message channel.")
+	consumerCmd.Flags().Int32VarP(&consumptionDeadline, "consumption-deadline", "d", 3*time.Minute, "stop reading messages after X minutes")
 	consumerCmd.MarkFlagRequired("key-id")
 
 }
