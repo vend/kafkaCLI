@@ -9,8 +9,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var bootstrapServer string
-
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "kafkaCLI",
@@ -27,8 +25,7 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&bootstrapServer, "bootstrap-server", "s", "", "address of a node in the kafka cluster")
-	_ = rootCmd.MarkPersistentFlagRequired("bootstrap-server")
+	rootCmd.PersistentFlags().StringVarP(&bootstrapServer, "bootstrap-server", "s", "kafka:9092", "address of a node in the kafka cluster")
 }
 
 func kafkaClient() sarama.Client {
