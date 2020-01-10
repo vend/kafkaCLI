@@ -5,6 +5,8 @@ import(
 )
 
 var (
+	bootstrapServer string
+
 	partitions int32
 	replicationFactor int16
 	ifNotExists bool
@@ -15,7 +17,7 @@ var (
 	message string
 	keyId string
 	offsetType string
-	messagesToRead int32
+	messagesToRead int
 	bufferSize int32
 	partitionsToRead string // [all] to read from all or comma separeted list
 	consumptionDeadline time.Duration
