@@ -34,6 +34,9 @@ func init() {
 func kafkaClient() sarama.Client {
 	kafkaConfig := sarama.NewConfig()
 	kafkaConfig.Version = sarama.V1_0_0_0
+	kafkaConfig.Net.ReadTimeout = 5 * time.Second
+	kafkaConfig.Net.DialTimeout = 5 * time.Second
+	kafkaConfig.Net.WriteTimeout = 5 * time.Second
 	addresses := []string{bootstrapServer}
 
 	var client sarama.Client
@@ -45,7 +48,7 @@ func kafkaClient() sarama.Client {
 			break
 		}
 
-		fmt.Println("failed to connect to " + bootstrapServer + " Retrying in 1s")
+		fmt.Fprintln(os.Stderr, "failed to connect to "+bootstrapServer+" Retrying in 1s")
 		time.Sleep(time.Second)
 	}
 
@@ -68,7 +71,7 @@ func kafkaAdmin() sarama.ClusterAdmin {
 			break
 		}
 
-		fmt.Println("failed to admin cluster at " + bootstrapServer + " Retrying in 1s")
+		fmt.Fprintln(os.Stderr, "failed to admin cluster at "+bootstrapServer+" Retrying in 1s")
 		time.Sleep(time.Second)
 	}
 

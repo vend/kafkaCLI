@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/Shopify/sarama"
@@ -32,7 +33,7 @@ kafkaCLI createTopic --bootstrap-server kafka:9092 --partitions 4 --replication-
 						}
 
 						if ifNotExists {
-							fmt.Println(err)
+							fmt.Fprintln(os.Stderr, err)
 						} else {
 							panic(err)
 						}
