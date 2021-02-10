@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// listTopicsCmd represents the listTopics command
+// listTopicsCmd represents the listTopics command.
 var listTopicsCmd = &cobra.Command{
 	Use:   "listTopics",
 	Short: "List all the topics",
