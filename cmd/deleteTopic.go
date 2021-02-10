@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// deleteTopicCmd represents the deleteTopic command
+// deleteTopicCmd represents the deleteTopic command.
 var deleteTopicCmd = &cobra.Command{
 	Use:   "deleteTopic",
 	Short: "Delete one or more topics",

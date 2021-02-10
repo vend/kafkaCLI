@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// createTopicCmd represents the createTopic command
+// createTopicCmd represents the createTopic command.
 var createTopicCmd = &cobra.Command{
 	Use:   "createTopic",
 	Short: "Create one or more topics",
